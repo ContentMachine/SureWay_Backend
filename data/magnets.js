@@ -9,4 +9,20 @@ const sizePrices = {
   "36x24": 45000,
 };
 
-module.exports = { sizePrices };
+const magnetCategories = [
+  "All",
+  "valentines-magnet",
+  "birthday-magnet",
+  "mothers-day-magnet",
+  "fathers-day-magnet",
+];
+
+const shapes = [
+  "circle",
+  "square",
+  "rectangle",
+  "rounded-rectangle",
+  "rounded-square",
+];
+
+module.exports = { sizePrices, magnetCategories, shapes };

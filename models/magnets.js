@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { magnetCategories, shapes, sizePrices } = require("../data/magnets");
 
 const magnetSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -9,20 +10,36 @@ const magnetSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
-    enum: [
-      "valentines-magnet",
-      "birthday-magnet",
-      "mothers-day-magnet",
-      "fathers-day-magnet",
-      "default",
-    ],
+    enum: magnetCategories,
   },
   slug: { type: String, unique: true, required: false },
 });
 
-magnetSchema.pre("save", async function (next) {
-  console.log("Middle ware is running");
+const typeMagnetSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  type: { type: String, required: true, enum: ["fridge", "car", "custom"] },
+  image: { type: String, required: true },
+  description: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now },
+  slug: { type: String, unique: true, required: false },
+  shapes: { type: [String], required: false, enum: shapes },
+  sizes: { type: [String], required: true, enum: Object.keys(sizePrices) },
+});
 
+const magnetSubmissionSchema = new mongoose.Schema({
+  shape: { type: String, required: true },
+  dimension: { type: String, required: true },
+  fullName: { type: String, required: true },
+  email: { type: String, required: true },
+  phone: { type: String, required: true },
+  customText: { type: String, required: false },
+  achievement: { type: String, required: false },
+  image: { type: String, required: false },
+  createdAt: { type: Date, default: Date.now },
+  // type: { type: String, required: true, enum: ["fridge", "car", "custom"] },
+});
+
+magnetSchema.pre("save", async function (next) {
   if (this.isModified("name")) {
     const baseSlug = this.name
       .toLowerCase()
@@ -42,4 +59,28 @@ magnetSchema.pre("save", async function (next) {
   next();
 });
 
-module.exports = mongoose.model("Magnet", magnetSchema);
+typeMagnetSchema.pre("save", async function (next) {
+  if (this.isModified("name")) {
+    const baseSlug = this.name
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9\-]/g, "");
+    let slug = baseSlug;
+    let count = 0;
+
+    // Ensure slug is unique
+    while (await mongoose.models.Magnet.findOne({ slug })) {
+      count++;
+      slug = `${baseSlug}-${count}`;
+    }
+
+    this.slug = slug;
+  }
+  next();
+});
+
+module.exports = {
+  Magnet: mongoose.model("Magnet", magnetSchema),
+  TypeMagnet: mongoose.model("TypeMagnet", typeMagnetSchema),
+  MagnetSubmission: mongoose.model("MagnetSubmission", magnetSubmissionSchema),
+};
