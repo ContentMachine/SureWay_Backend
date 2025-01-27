@@ -1,12 +1,12 @@
 const sizePrices = {
-  "10x10": 5000,
-  "12x12": 6500,
-  "15x15": 8000,
-  "30x30": 450000,
-  "12x8": 5000,
-  "16x12": 6750,
-  "20x16": 12500,
-  "36x24": 45000,
+  "10cmx10cm": 5000,
+  "12cmx12cm": 6500,
+  "15cmx15cm": 8000,
+  "30cmx30cm": 450000,
+  "12cmx8cm": 5000,
+  "16cmx12cm": 6750,
+  "20cmx16cm": 12500,
+  "36cmx24cm": 45000,
 };
 
 const magnetCategories = [
@@ -23,6 +23,10 @@ const shapes = [
   "rectangle",
   "rounded-rectangle",
   "rounded-square",
+  "custom",
+  "custom-with-border",
+  "rounded-corners",
+  "square/rectange",
 ];
 
 module.exports = { sizePrices, magnetCategories, shapes };

@@ -20,6 +20,7 @@ router.post("/", async (req, res) => {
       type,
       image,
       hoverImage,
+      shape,
       category: category || "default",
       createdAt: createdAt || new Date(),
     });
@@ -232,6 +233,7 @@ router.post("/submit-magnet", upload.single("image"), async (req, res) => {
       phone,
       customText,
       achievement,
+      type,
     } = req.body;
 
     if (!req.file) {
@@ -246,6 +248,7 @@ router.post("/submit-magnet", upload.single("image"), async (req, res) => {
       phone,
       customText,
       achievement,
+      type,
       image: req.file.path,
     });
 

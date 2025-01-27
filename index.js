@@ -4,6 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 const mongoose = require("mongoose");
 const magnetRoutes = require("./routes/magnetRoutes");
+const paymentRoute = require("./routes/paymentRoute");
 
 mongoose
   .connect(process.env.MONGO_DB_CONNECTION, {
@@ -27,6 +28,7 @@ app.get("/", (req, res) => {
 
 // Magnets
 app.use(`/api/magnets`, magnetRoutes);
+app.use(`/api/payment`, paymentRoute);
 
 //Start server
 app.listen(PORT, () => {
