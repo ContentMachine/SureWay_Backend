@@ -24,9 +24,9 @@ const shapes = [
   "rounded-rectangle",
   "rounded-square",
   "custom",
-  "custom-with-border",
-  "rounded-corners",
-  "square/rectange",
+  "custom-bordered",
+  "rounded",
+  "squae-Rectange",
 ];
 
 module.exports = { sizePrices, magnetCategories, shapes };
