@@ -32,6 +32,14 @@ app.use(`/api/magnets`, magnetRoutes);
 app.use(`/api/payment`, paymentRoute);
 app.use(`/api/contact-us`, contactUsRoute);
 
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error("Global Error Handler:", err);
+  res.status(err.status || 500).json({
+    error: err.message || "An unexpected error occurred",
+  });
+});
+
 //Start server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

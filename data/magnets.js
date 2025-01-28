@@ -37,7 +37,7 @@ const shapes = [
   "custom",
   "custom-bordered",
   "rounded",
-  "square-Rectangle",
+  "square/rectangle",
 ];
 
 const shapesAndSizes = [
