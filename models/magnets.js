@@ -13,7 +13,7 @@ const magnetSchema = new mongoose.Schema({
     enum: magnetCategories,
   },
   slug: { type: String, unique: true, required: false },
-  shapes: { type: String, required: false, enum: shapes },
+  shape: { type: String, required: true, enum: shapes },
 });
 
 const typeMagnetSchema = new mongoose.Schema({

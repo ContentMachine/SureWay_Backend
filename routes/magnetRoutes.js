@@ -1,14 +1,19 @@
 const express = require("express");
 const { Magnet, TypeMagnet, MagnetSubmission } = require("../models/magnets");
 const router = express.Router();
-const { sizePrices, magnetCategories } = require("../data/magnets");
+const {
+  sizePrices,
+  magnetCategories,
+  shapesAndSizes,
+} = require("../data/magnets");
 const capitalize = require("../helpers/capitalize");
 const upload = require("../middleware/upload");
 
 // Add a new magnet
 router.post("/", async (req, res) => {
   try {
-    const { type, name, image, hoverImage, category, createdAt } = req.body;
+    const { type, name, image, hoverImage, category, createdAt, shape } =
+      req.body;
 
     // Basic validation
     if (!type || !name || !image) {
@@ -81,13 +86,21 @@ router.delete("/:slug", async (req, res) => {
   }
 });
 
-router.get("/size/sizes", (req, res) => {
+// Get sizes by shape
+router.get("/size/sizes/:shape", (req, res) => {
+  const { shape } = req.params;
+
   try {
-    if (!sizePrices) {
+    const selectedShape = shapesAndSizes?.find((data) => data?.shape === shape);
+
+    if (!selectedShape) {
       return res.status(404).json({ message: "No sizes available" });
     }
 
-    const sizes = Object.keys(sizePrices);
+    console.log(selectedShape);
+
+    const sizes = selectedShape?.sizes;
+
     res.status(200).json(sizes);
   } catch (err) {
     console.error("Error in GET /api/magnets/size/:size:", err);
