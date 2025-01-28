@@ -26,6 +26,7 @@ const magnetCategories = [
   "birthday-magnet",
   "mothers-day-magnet",
   "fathers-day-magnet",
+  "fridge-reminder",
 ];
 
 const shapes = [
