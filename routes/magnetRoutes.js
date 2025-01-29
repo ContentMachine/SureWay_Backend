@@ -5,6 +5,7 @@ const {
   sizePrices,
   magnetCategories,
   shapesAndSizes,
+  sizePricesWithType,
 } = require("../data/magnets");
 const capitalize = require("../helpers/capitalize");
 const upload = require("../middleware/upload");
@@ -86,22 +87,66 @@ router.delete("/:slug", async (req, res) => {
   }
 });
 
-// Get sizes by shape
-router.get("/size/sizes/:shape", (req, res) => {
-  const { shape } = req.params;
+// Get shapes by type
+router.get("/size/by-type/:type", (req, res) => {
+  const { type } = req.params;
 
   try {
-    const selectedShape = shapesAndSizes?.find((data) => data?.shape === shape);
+    const selectedShape = sizePricesWithType
+      ?.find((data) => data?.type === type)
+      .shapes?.map((data) => data?.shape);
 
     if (!selectedShape) {
       return res.status(404).json({ message: "No sizes available" });
     }
 
-    console.log(selectedShape);
+    res.status(200).json({ shapes: selectedShape });
+  } catch (err) {
+    console.error("Error in GET /api/magnets/size/:size:", err);
+    res
+      .status(500)
+      .json({ message: "An error occurred while fetching the sizes." });
+  }
+});
 
-    const sizes = selectedShape?.sizes;
+// Get dimensions by type and shape
+router.get("/size/by-type/:type/:shape", (req, res) => {
+  const { type, shape } = req.params;
 
-    res.status(200).json(sizes);
+  try {
+    const selectedDImensions = sizePricesWithType
+      ?.find((data) => data?.type === type)
+      ?.shapes?.find((data) => data?.shape === shape)
+      ?.dimensions?.map((data) => data?.dimension);
+
+    if (!selectedDImensions) {
+      return res.status(404).json({ message: "No dimensions available" });
+    }
+
+    res.status(200).json({ dimensions: selectedDImensions });
+  } catch (err) {
+    console.error("Error in GET /api/magnets/size/:size:", err);
+    res
+      .status(500)
+      .json({ message: "An error occurred while fetching the sizes." });
+  }
+});
+
+// Get Price by type, shape and dimensions
+router.get("/size/by-type/:type/:shape/:dimension", (req, res) => {
+  const { type, shape, dimension } = req.params;
+
+  try {
+    const selectedPrice = sizePricesWithType
+      ?.find((data) => data?.type === type)
+      ?.shapes?.find((data) => data?.shape === shape)
+      ?.dimensions?.find((data) => data?.dimension === dimension)?.price;
+
+    if (!selectedPrice) {
+      return res.status(404).json({ message: "No price available" });
+    }
+
+    res.status(200).json({ price: selectedPrice });
   } catch (err) {
     console.error("Error in GET /api/magnets/size/:size:", err);
     res
@@ -129,25 +174,26 @@ router.get("/size/by-size/:size", (req, res) => {
   }
 });
 
-router.get("/size/by-size/:size/:quantity", (req, res) => {
+// Get price breakdown by Price and Quantity
+router.get("/price/by-quantity/:price/:quantity", (req, res) => {
   try {
-    const { size, quantity } = req.params;
+    const { price, quantity } = req.params;
 
-    if (!sizePrices[size]) {
-      return res.status(404).json({ message: "Size not found." });
+    if (!price || !quantity) {
+      return res.status(404).json({ message: "Price not found." });
     }
 
-    const price = sizePrices[size];
     const basePrice = price;
     const subTotal = basePrice * quantity;
-    const estimatedTax = 0.05 * basePrice;
+    const estimatedTax = 0.075 * basePrice;
     const shipping = 0;
     const total = subTotal + estimatedTax + shipping;
-    res
-      .status(200)
-      .json({ size, price, subTotal, estimatedTax, shipping, total });
+    res.status(200).json({ price, subTotal, estimatedTax, shipping, total });
   } catch (err) {
-    console.error("Error in GET /api/magnets/size/:size:", err);
+    console.error(
+      "Error in GET /api/magnets/price/by-quantity/:price/:quantity",
+      err
+    );
     res
       .status(500)
       .json({ message: "An error occurred while fetching the price." });
@@ -162,6 +208,7 @@ router.get("/category/categories", (req, res) => {
     res.status(200).json(categories);
   } catch (err) {
     console.error("Error in GET /api/magnets/size/:size:", err);
+
     res
       .status(500)
       .json({ message: "An error occurred while fetching the price." });

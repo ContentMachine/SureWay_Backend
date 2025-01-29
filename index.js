@@ -35,8 +35,18 @@ app.use(`/api/contact-us`, contactUsRoute);
 // Global error handler
 app.use((err, req, res, next) => {
   console.error("Global Error Handler:", err);
+
   res.status(err.status || 500).json({
-    error: err.message || "An unexpected error occurred",
+    success: false,
+    message: err.message || "An unexpected error occurred",
+  });
+});
+
+// Handle 404 (route not found) as JSON
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: "Route not found",
   });
 });
 

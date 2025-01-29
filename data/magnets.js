@@ -7,27 +7,13 @@ const sizes = {
   "16cmx12cm": "16cmx12cm",
   "20cmx16cm": "20cmx16cm",
   "36cmx24cm": "36cmx24cm",
+  "30cmx30cm-car": "30cmx30cm",
+  "40cmx40cm-car": "40cmx40cm",
+  "50cmx50cm-car": "50cmx50cm",
+  "40cmx25cm-car": "40cmx25cm",
+  "60cmx30cm-car": "60cmx30cm",
+  "80cmx35cm-car": "80cmx35cm",
 };
-
-const sizePrices = {
-  "10cmx10cm": 5000,
-  "12cmx12cm": 6500,
-  "15cmx15cm": 8000,
-  "30cmx30cm": 45000,
-  "12cmx8cm": 5000,
-  "16cmx12cm": 6750,
-  "20cmx16cm": 12500,
-  "36cmx24cm": 45000,
-};
-
-const magnetCategories = [
-  "All",
-  "valentines-magnet",
-  "birthday-magnet",
-  "mothers-day-magnet",
-  "fathers-day-magnet",
-  "fridge-reminder",
-];
 
 const shapes = [
   "circle",
@@ -38,91 +24,372 @@ const shapes = [
   "custom",
   "custom-bordered",
   "rounded",
-  "square/rectangle",
+  "square-or-rectangle",
+  "custom",
+  "square-car",
+  "circle-car",
+  "rectangle-car",
 ];
 
-const shapesAndSizes = [
+const sizePrices = {
+  "10cmx10cm": 5000,
+  "12cmx12cm": 6500,
+  "15cmx15cm": 8000,
+  "30cmx30cm": 45000,
+  "12cmx8cm": 5000,
+  "16cmx12cm": 6750,
+  "20cmx16cm": 12500,
+  "36cmx24cm": 45000,
+  "30cmx30cm-car": 45000,
+  "40cmx40cm-car": 60000,
+  "50cmx50cm-car": 75000,
+  "40cmx25cm-car": 50000,
+  "60cmx30cm-car": 65000,
+  "80cmx35cm-car": 80000,
+};
+
+const sizePricesWithType = [
   {
-    shape: shapes[0],
-    sizes: [
-      sizes["10cmx10cm"],
-      sizes["12cmx12cm"],
-      sizes["15cmx15cm"],
-      sizes["30cmx30cm"],
-    ],
-  },
-  {
-    shape: shapes[1],
-    sizes: [
-      sizes["10cmx10cm"],
-      sizes["12cmx12cm"],
-      sizes["15cmx15cm"],
-      sizes["30cmx30cm"],
-    ],
-  },
-  {
-    shape: shapes[2],
-    sizes: [
-      sizes["12cmx8cm"],
-      sizes["16cmx12cm"],
-      sizes["20cmx16cm"],
-      sizes["36cmx24cm"],
+    type: "fridge",
+    shapes: [
+      {
+        shape: shapes[0],
+        dimensions: [
+          {
+            dimension: sizes["10cmx10cm"],
+            price: sizePrices["10cmx10cm"],
+          },
+          {
+            dimension: sizes["12cmx12cm"],
+            price: sizePrices["12cmx12cm"],
+          },
+          {
+            dimension: sizes["15cmx15cm"],
+            price: sizePrices["15cmx15cm"],
+          },
+          {
+            dimension: sizes["30cmx30cm"],
+            price: sizePrices["30cmx130cm"],
+          },
+        ],
+      },
+      {
+        shape: shapes[1],
+        dimensions: [
+          {
+            dimension: sizes["10cmx10cm"],
+            price: sizePrices["10cmx10cm"],
+          },
+          {
+            dimension: sizes["12cmx12cm"],
+            price: sizePrices["12cmx12cm"],
+          },
+          {
+            dimension: sizes["15cmx15cm"],
+            price: sizePrices["15cmx15cm"],
+          },
+          {
+            dimension: sizes["30cmx30cm"],
+            price: sizePrices["30cmx30cm"],
+          },
+        ],
+      },
+      {
+        shape: shapes[2],
+        dimensions: [
+          {
+            dimension: sizes["12cmx8cm"],
+            price: sizePrices["12cmx8cm"],
+          },
+          {
+            dimension: sizes["16cmx12cm"],
+            price: sizePrices["20cmx16cm"],
+          },
+          {
+            dimension: sizes["36cmx24cm"],
+            price: sizePrices["36cmx24cm"],
+          },
+        ],
+      },
+      {
+        shape: shapes[3],
+        dimensions: [
+          {
+            dimension: sizes["12cmx8cm"],
+            price: sizePrices["12cmx8cm"],
+          },
+          {
+            dimension: sizes["16cmx12cm"],
+            price: sizePrices["20cmx16cm"],
+          },
+          {
+            dimension: sizes["36cmx24cm"],
+            price: sizePrices["36cmx24cm"],
+          },
+        ],
+      },
+      {
+        shape: shapes[4],
+        dimensions: [
+          {
+            dimension: sizes["10cmx10cm"],
+            price: sizePrices["10cmx10cm"],
+          },
+          {
+            dimension: sizes["12cmx12cm"],
+            price: sizePrices["12cmx12cm"],
+          },
+          {
+            dimension: sizes["15cmx15cm"],
+            price: sizePrices["15cmx15cm"],
+          },
+          {
+            dimension: sizes["30cmx130cm"],
+            price: sizePrices["30cmx130cm"],
+          },
+        ],
+      },
     ],
   },
 
   {
-    shape: shapes[3],
-    sizes: [
-      sizes["12cmx8cm"],
-      sizes["16cmx12cm"],
-      sizes["20cmx16cm"],
-      sizes["36cmx24cm"],
+    type: "custom",
+    shapes: [
+      {
+        shape: shapes[0],
+        dimensions: [
+          {
+            dimension: sizes["10cmx10cm"],
+            price: sizePrices["10cmx10cm"],
+          },
+          {
+            dimension: sizes["12cmx12cm"],
+            price: sizePrices["12cmx12cm"],
+          },
+          {
+            dimension: sizes["15cmx15cm"],
+            price: sizePrices["15cmx15cm"],
+          },
+          {
+            dimension: sizes["30cmx30cm"],
+            price: sizePrices["30cmx130cm"],
+          },
+        ],
+      },
+      {
+        shape: shapes[1],
+        dimensions: [
+          {
+            dimension: sizes["10cmx10cm"],
+            price: sizePrices["10cmx10cm"],
+          },
+          {
+            dimension: sizes["12cmx12cm"],
+            price: sizePrices["12cmx12cm"],
+          },
+          {
+            dimension: sizes["15cmx15cm"],
+            price: sizePrices["15cmx15cm"],
+          },
+          {
+            dimension: sizes["30cmx30cm"],
+            price: sizePrices["30cmx30cm"],
+          },
+        ],
+      },
+      {
+        shape: shapes[2],
+        dimensions: [
+          {
+            dimension: sizes["12cmx8cm"],
+            price: sizePrices["12cmx8cm"],
+          },
+          {
+            dimension: sizes["16cmx12cm"],
+            price: sizePrices["20cmx16cm"],
+          },
+          {
+            dimension: sizes["36cmx24cm"],
+            price: sizePrices["36cmx24cm"],
+          },
+        ],
+      },
+      {
+        shape: shapes[3],
+        dimensions: [
+          {
+            dimension: sizes["12cmx8cm"],
+            price: sizePrices["12cmx8cm"],
+          },
+          {
+            dimension: sizes["16cmx12cm"],
+            price: sizePrices["20cmx16cm"],
+          },
+          {
+            dimension: sizes["36cmx24cm"],
+            price: sizePrices["36cmx24cm"],
+          },
+        ],
+      },
+      {
+        shape: shapes[4],
+        dimensions: [
+          {
+            dimension: sizes["10cmx10cm"],
+            price: sizePrices["10cmx10cm"],
+          },
+          {
+            dimension: sizes["12cmx12cm"],
+            price: sizePrices["12cmx12cm"],
+          },
+          {
+            dimension: sizes["15cmx15cm"],
+            price: sizePrices["15cmx15cm"],
+          },
+          {
+            dimension: sizes["30cmx130cm"],
+            price: sizePrices["30cmx130cm"],
+          },
+        ],
+      },
     ],
   },
+
   {
-    shape: shapes[4],
-    sizes: [
-      sizes["10cmx10cm"],
-      sizes["12cmx12cm"],
-      sizes["15cmx15cm"],
-      sizes["30cmx30cm"],
-    ],
-  },
-  {
-    shape: shapes[5],
-    sizes: [
-      sizes["10cmx10cm"],
-      sizes["12cmx12cm"],
-      sizes["15cmx15cm"],
-      sizes["30cmx30cm"],
-      sizes["12cmx8cm"],
-      sizes["16cmx12cm"],
-      sizes["20cmx16cm"],
-      sizes["36cmx24cm"],
-    ],
-  },
-  {
-    shape: shapes[6],
-    sizes: [
-      sizes["10cmx10cm"],
-      sizes["12cmx12cm"],
-      sizes["15cmx15cm"],
-      sizes["30cmx30cm"],
-      sizes["12cmx8cm"],
-      sizes["16cmx12cm"],
-      sizes["20cmx16cm"],
-      sizes["36cmx24cm"],
-    ],
-  },
-  {
-    shape: shapes[7],
-    sizes: [
-      sizes["10cmx10cm"],
-      sizes["12cmx12cm"],
-      sizes["15cmx15cm"],
-      sizes["30cmx30cm"],
+    type: "car",
+    shapes: [
+      {
+        shape: shapes[5],
+        dimensions: [
+          {
+            dimension: sizes["30cmx30cm-car"],
+            price: sizePrices["30cmx30cm-car"],
+          },
+          {
+            dimension: sizes["40cmx40cm-car"],
+            price: sizePrices["40cmx40cm-car"],
+          },
+          {
+            dimension: sizes["50cmx50cm-car"],
+            price: sizePrices["50cmx50cm-car"],
+          },
+          {
+            dimension: sizes["40cmx25cm-car"],
+            price: sizePrices["40cmx25cm-car"],
+          },
+          {
+            dimension: sizes["60cmx30cm-car"],
+            price: sizePrices["60cmx30cm-car"],
+          },
+          {
+            dimension: sizes["80cmx35cm-car"],
+            price: sizePrices["60cmx30cm-car"],
+          },
+        ],
+      },
+      {
+        shape: shapes[6],
+        dimensions: [
+          {
+            dimension: sizes["30cmx30cm-car"],
+            price: sizePrices["30cmx30cm-car"],
+          },
+          {
+            dimension: sizes["40cmx40cm-car"],
+            price: sizePrices["40cmx40cm-car"],
+          },
+          {
+            dimension: sizes["50cmx50cm-car"],
+            price: sizePrices["50cmx50cm-car"],
+          },
+          {
+            dimension: sizes["40cmx25cm-car"],
+            price: sizePrices["40cmx25cm-car"],
+          },
+          {
+            dimension: sizes["60cmx30cm-car"],
+            price: sizePrices["60cmx30cm-car"],
+          },
+          {
+            dimension: sizes["85cmx35cm-car"],
+            price: sizePrices["60cmx30cm-car"],
+          },
+        ],
+      },
+      {
+        shape: shapes[7],
+        dimensions: [
+          {
+            dimension: sizes["30cmx30cm-car"],
+            price: sizePrices["30cmx30cm-car"],
+          },
+          {
+            dimension: sizes["40cmx40cm-car"],
+            price: sizePrices["40cmx40cm-car"],
+          },
+          {
+            dimension: sizes["50cmx50cm-car"],
+            price: sizePrices["50cmx50cm-car"],
+          },
+          {
+            dimension: sizes["40cmx25cm-car"],
+            price: sizePrices["40cmx25cm-car"],
+          },
+          {
+            dimension: sizes["60cmx30cm-car"],
+            price: sizePrices["60cmx30cm-car"],
+          },
+          {
+            dimension: sizes["85cmx35cm-car"],
+            price: sizePrices["60cmx30cm-car"],
+          },
+        ],
+      },
+      {
+        shape: shapes[8],
+        dimensions: [
+          {
+            dimension: sizes["30cmx30cm-car"],
+            price: sizePrices["30cmx30cm-car"],
+          },
+          {
+            dimension: sizes["40cmx40cm-car"],
+            price: sizePrices["40cmx40cm-car"],
+          },
+          {
+            dimension: sizes["50cmx50cm-car"],
+            price: sizePrices["50cmx50cm-car"],
+          },
+          {
+            dimension: sizes["40cmx25cm-car"],
+            price: sizePrices["40cmx25cm-car"],
+          },
+          {
+            dimension: sizes["60cmx30cm-car"],
+            price: sizePrices["60cmx30cm-car"],
+          },
+          {
+            dimension: sizes["85cmx35cm-car"],
+            price: sizePrices["60cmx30cm-car"],
+          },
+        ],
+      },
     ],
   },
 ];
 
-module.exports = { sizePrices, magnetCategories, shapes, shapesAndSizes };
+const magnetCategories = [
+  "All",
+  "valentines-magnet",
+  "birthday-magnet",
+  "mothers-day-magnet",
+  "fathers-day-magnet",
+  "fridge-reminder",
+];
+
+module.exports = {
+  sizePrices,
+  magnetCategories,
+  shapes,
+  sizePricesWithType,
+};
