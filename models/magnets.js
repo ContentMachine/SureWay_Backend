@@ -26,6 +26,7 @@ const typeMagnetSchema = new mongoose.Schema({
   shapes: { type: [String], required: false, enum: shapes },
   sizes: { type: [String], required: true, enum: Object.keys(sizePrices) },
   bannerImage: { type: String, required: false },
+  mobileBannerImage: { type: String, required: false },
 });
 
 const magnetSubmissionSchema = new mongoose.Schema({
