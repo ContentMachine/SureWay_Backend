@@ -380,11 +380,11 @@ const sizePricesWithType = [
 
 const magnetCategories = [
   "All",
-  "valentines-magnet",
-  "birthday-magnet",
-  "mothers-day-magnet",
-  "fathers-day-magnet",
-  "fridge-reminder",
+  "valentines-magnets",
+  "birthday-magnets",
+  "mothers-day-magnets",
+  "fathers-day-magnets",
+  "fridge-reminders",
 ];
 
 module.exports = {
