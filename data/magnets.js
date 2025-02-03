@@ -13,6 +13,8 @@ const sizes = {
   "40cmx25cm-car": "40cmx25cm",
   "60cmx30cm-car": "60cmx30cm",
   "80cmx35cm-car": "80cmx35cm",
+  "29.7cmx42cm": "29.7cmx42cm",
+  "29.7cmx42cm-acrylic": "29.7cmx42cm-acrylic",
 };
 
 const shapes = [
@@ -46,6 +48,8 @@ const sizePrices = {
   "40cmx25cm-car": 50000,
   "60cmx30cm-car": 65000,
   "80cmx35cm-car": 80000,
+  "49cmx29.7cm": 15000,
+  "29.7cmx42cm-acrylic": 20000,
 };
 
 const sizePricesWithType = [
