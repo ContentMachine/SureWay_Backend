@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const magnetRoutes = require("./routes/magnetRoutes");
 const paymentRoute = require("./routes/paymentRoute");
 const contactUsRoute = require("./routes/contactUsRoute");
+const engravingsRoute = require("./routes/engravingsRoute");
 
 mongoose
   .connect(process.env.MONGO_DB_CONNECTION, {
@@ -31,6 +32,8 @@ app.get("/", (req, res) => {
 app.use(`/api/magnets`, magnetRoutes);
 app.use(`/api/payment`, paymentRoute);
 app.use(`/api/contact-us`, contactUsRoute);
+app.use(`/api/contact-us`, contactUsRoute);
+app.use(`/api/engravings`, engravingsRoute);
 
 // Global error handler
 app.use((err, req, res, next) => {
@@ -51,6 +54,8 @@ app.use((req, res) => {
 });
 
 //Start server
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+server.setTimeout(120000);

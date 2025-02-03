@@ -43,7 +43,6 @@ const magnetSubmissionSchema = new mongoose.Schema({
   paid: { type: Boolean, default: false },
   paymentReference: { type: String, default: null },
   paidAt: { type: Date, default: null },
-
   createdAt: { type: Date, default: Date.now },
 });
 
