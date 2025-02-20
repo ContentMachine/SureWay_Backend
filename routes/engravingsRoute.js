@@ -22,27 +22,72 @@ router.get("/categories", async (req, res) => {
   }
 });
 
-router.get("/merch", async (req, res) => {
+router.get("/:type", async (req, res) => {
+  const { type } = req.params;
+
   try {
-    const engravedProducts = await EngravingsMerch.find();
+    if (type === "merchandise") {
+      const engravedProducts = await EngravingsMerch.find();
 
-    if (!engravedProducts?.length) {
-      return res
-        .status(404)
-        .json({ message: "No engraved products available" });
+      if (!engravedProducts?.length) {
+        return res
+          .status(404)
+          .json({ message: "No engraved products available" });
+      }
+
+      return res.status(200).json({ engravedProducts });
+    } else {
+      const engravedProducts = await EngravingsMerch.find();
+
+      if (!engravedProducts?.length) {
+        return res
+          .status(404)
+          .json({ message: "No engraved products available" });
+      }
+
+      return res.status(200).json({ engravedProducts });
     }
-
-    return res.status(200).json({ engravedProducts });
   } catch (err) {
-    console.error("Error in GET /api/engravings/merch", err);
+    console.error("Error in GET /api/engravings/merchandise", err);
   }
 });
 
-router.post("/merch", upload.array("images", 3), async (req, res) => {
-  try {
-    const { name, type, description, features, price } = req.body;
+router.get("/:type/:slug", async (req, res) => {
+  const { type, slug } = req.params;
 
-    if (!name || !type || !description || !price) {
+  try {
+    if (type === "merchandise") {
+      const engravedProduct = await EngravingsMerch.find({ slug });
+
+      if (!engravedProduct) {
+        return res
+          .status(404)
+          .json({ message: "No engraved products available" });
+      }
+
+      return res.status(200).json({ engravedProduct });
+      
+    } else {
+      const engravedProduct = await EngravingsMerch.find({ slug });
+
+      if (engravedProduct) {
+        return res
+          .status(404)
+          .json({ message: "No engraved products available" });
+      }
+
+      return res.status(200).json({ engravedProduct });
+    }
+  } catch (err) {
+    console.error("Error in GET /api/engravings/merchandise/:id", err);
+  }
+});
+
+router.post("/merchandise", upload.array("images", 3), async (req, res) => {
+  try {
+    const { name, description, features, priceRange, category } = req.body;
+
+    if (!name || !description || !priceRange) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
@@ -50,10 +95,10 @@ router.post("/merch", upload.array("images", 3), async (req, res) => {
 
     const engravedProduct = new EngravingsMerch({
       name,
-      type,
       description,
+      category,
       features,
-      price,
+      priceRange,
       createdAt: new Date(),
       images: imagePaths,
     });
@@ -61,7 +106,7 @@ router.post("/merch", upload.array("images", 3), async (req, res) => {
     const newEngravedProduct = await engravedProduct.save();
     res.status(200).json(newEngravedProduct);
   } catch (err) {
-    console.error("Error in POST /api/engravings/merch:", err);
+    console.error("Error in POST /api/engravings/merchandise", err);
     res.status(500).json({ message: err.message });
   }
 });

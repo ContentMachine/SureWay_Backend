@@ -10,8 +10,26 @@ const engravedMerchSchema = new mongoose.Schema({
   category: { type: String, required: true, enum: engravedMerchTypes },
   images: { type: [String], required: false },
   features: { type: String, required: true },
-  price: { type: Number, required: true },
-  slug: { type: String, unique: true, required: false },
+  priceRange: {
+    type: String,
+    required: true,
+    validate: {
+      validator: (priceRange) => {
+        if (!priceRange.includes("-")) {
+          return false;
+        } else {
+          return true;
+        }
+      },
+      message: (props) =>
+        `Invalid value for price range. Allowed values should come in a range.`,
+    },
+  },
+  slug: {
+    type: String,
+    unique: true,
+    required: false,
+  },
 });
 
 engravedMerchSchema.pre("save", async function (next) {
@@ -23,7 +41,7 @@ engravedMerchSchema.pre("save", async function (next) {
     let slug = baseSlug;
     let count = 0;
 
-    while (await mongoose.models.Engravings.findOne({ slug })) {
+    while (await mongoose.models.EngravingsMerch.findOne({ slug })) {
       count++;
       slug = `${baseSlug}-${count}`;
     }
@@ -34,5 +52,5 @@ engravedMerchSchema.pre("save", async function (next) {
 });
 
 module.exports = {
-  Engravings: mongoose.model("EngravingsMerch", engravedMerchSchema),
+  EngravingsMerch: mongoose.model("EngravingsMerch", engravedMerchSchema),
 };
